@@ -1,4 +1,4 @@
-# digital_stamp_quiz
+# Digital Stamp Quiz
 
 A new Flutter project.
 
