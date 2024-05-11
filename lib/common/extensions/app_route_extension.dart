@@ -5,10 +5,13 @@ extension AppRouteX on AppRoute {
     switch (this) {
       case AppRoute.splash:
         return '/splash';
-      case AppRoute.dashboard:
+      case AppRoute.home:
+        return '/home';
+      case AppRoute.quizDashboard:
         return '/dashboard';
-      case AppRoute.quiz:
-        return 'quiz';
+      case AppRoute.selectedQuiz:
+        return 'quiz/:id';
+
       default:
         return '/';
     }
@@ -18,10 +21,12 @@ extension AppRouteX on AppRoute {
     switch (this) {
       case AppRoute.splash:
         return 'splash';
-      case AppRoute.quiz:
-        return 'quiz';
-      case AppRoute.dashboard:
-        return 'dashboard';
+      case AppRoute.home:
+        return 'home';
+      case AppRoute.quizDashboard:
+        return 'quiz-dashboard';
+      case AppRoute.selectedQuiz:
+        return 'selected-quiz';
       default:
         return '/';
     }

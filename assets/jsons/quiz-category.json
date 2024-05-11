@@ -2,7 +2,7 @@
 	{
 		"id": 1,
 		"name": "Space and Astronomy",
-		"image": "assets/png/space-and-astronomy.png",
+		"image": "assets/images/galaxy.jpg",
 		"quizCount": 5,
 		"digitalStamp": {
 			"name": "Space and Astronomy",
