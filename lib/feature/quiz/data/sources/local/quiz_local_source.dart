@@ -21,7 +21,6 @@ class QuizLocalSource {
     final jsonData = jsonDecode(jsonFile);
     // Stores digital stamps if non-existent on local device storage.
     if (digitalStamps == null) {
-      print('data is null');
       List<DigitalStamp> stamps = (jsonData as List<dynamic>)
           .map((stampData) => stampData['digitalStamp'])
           .map((e) => DigitalStamp.fromJson(e))
