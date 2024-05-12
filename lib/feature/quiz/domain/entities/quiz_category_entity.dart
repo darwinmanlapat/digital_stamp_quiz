@@ -1,4 +1,4 @@
-import 'package:digital_stamp_quiz/feature/quiz/domain/entities/digital_stamp_entity.dart';
+import 'package:digital_stamp_quiz/common/hive/models/digital_stamp.dart';
 import 'package:digital_stamp_quiz/feature/quiz/domain/entities/quiz_entity.dart';
 
 class QuizCategory {

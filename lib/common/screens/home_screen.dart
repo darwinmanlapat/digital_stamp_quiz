@@ -31,7 +31,42 @@ class HomeScreen extends StatelessWidget {
                   ),
                   QuizCustomButton.outlined(
                     label: 'About',
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text(
+                              "Mechanics",
+                              style: TextStyle(
+                                fontFamily: 'DM Sans',
+                                color: Colors.black,
+                              ),
+                            ),
+                            content: const Text(
+                                style: TextStyle(
+                                  fontFamily: 'DM Sans',
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                ),
+                                "Select a quiz category and collect stamps for every correct answer."),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: context.pop,
+                                child: const Text(
+                                  "Close",
+                                  style: TextStyle(
+                                    fontFamily: 'DM Sans',
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                     height: 60,
                   ),
                 ],

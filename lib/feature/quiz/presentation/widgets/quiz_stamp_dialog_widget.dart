@@ -1,5 +1,6 @@
 import 'package:digital_stamp_quiz/common/constants/quiz_color.dart';
-import 'package:digital_stamp_quiz/feature/quiz/domain/entities/digital_stamp_entity.dart';
+import 'package:digital_stamp_quiz/common/hive/models/digital_stamp.dart';
+import 'package:digital_stamp_quiz/common/widgets/quiz_custom_button.dart';
 import 'package:digital_stamp_quiz/feature/quiz/presentation/view_models/quiz_stamps_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -60,7 +61,7 @@ class QuizStamps extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'Highest Recorded Score',
+                  'Stamps Collected',
                   style: TextStyle(
                     fontFamily: 'DM Sans',
                     fontSize: 24,
@@ -73,18 +74,53 @@ class QuizStamps extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         data.items.length,
-                        (index) => Icon(
-                          Icons.star,
-                          color: data.items[index].isSigned
-                              ? Colors.yellow
-                              : Colors.grey,
-                          size: 40,
+                        (index) => Stack(
+                          children: [
+                            Icon(
+                              Icons.emoji_events,
+                              color: data.items[index].isSigned
+                                  ? Colors.yellow
+                                  : Colors.grey,
+                              size: 40,
+                            ),
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Padding(
+                                  padding: const EdgeInsets.all(2),
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      '${index + 1}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                          ],
                         ),
                       ),
                     );
                   },
-                  error: (_, __) => const Placeholder(),
+                  error: (_, __) => const SizedBox.shrink(),
                   loading: () => const CircularProgressIndicator.adaptive(),
+                ),
+                const SizedBox(height: 16),
+                QuizCustomButton(
+                  label: 'Reset',
+                  onPressed: () async {
+                    final goRouter = GoRouter.of(context);
+                    await stampsNotifier
+                        .resetQuizStampsPerCategory(digitalStamp.name);
+
+                    goRouter.pop();
+                  },
                 ),
                 const SizedBox(height: 16),
               ],

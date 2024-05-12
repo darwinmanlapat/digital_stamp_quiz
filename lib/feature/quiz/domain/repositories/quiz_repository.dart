@@ -6,5 +6,10 @@ abstract class QuizRepository {
 
   Future<DigitalStamp> getDigitalStampPerCategory(String categoryname);
 
-  Future<void> updateQuizStampsPerCategory(String categoryName);
+  Future<void> updateQuizStampsPerCategory(
+    String categoryName,
+    int questionIndex,
+  );
+
+  Future<void> resetQuizStampsPerCategory(String categoryName);
 }

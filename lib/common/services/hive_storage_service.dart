@@ -21,8 +21,8 @@ class HiveStorageService<T> {
   }
 
   //read
-  dynamic getData(String key)  {
-    return _box.get(key);
+  Future<T> getData(String key)  async {
+    return  await _box.get(key);
   }
 
   // Remove data from local storage

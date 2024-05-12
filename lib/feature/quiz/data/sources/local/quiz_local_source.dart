@@ -19,9 +19,9 @@ class QuizLocalSource {
       'assets/jsons/quiz-category.json',
     );
     final jsonData = jsonDecode(jsonFile);
-
     // Stores digital stamps if non-existent on local device storage.
     if (digitalStamps == null) {
+      print('data is null');
       List<DigitalStamp> stamps = (jsonData as List<dynamic>)
           .map((stampData) => stampData['digitalStamp'])
           .map((e) => DigitalStamp.fromJson(e))
@@ -44,13 +44,55 @@ class QuizLocalSource {
     final digitalStamps =
         await _hiveStorage.getData(LocalStorageKeys.digitalStamps);
 
-    DigitalStamp stamp = digitalStamps
-        .firstWhere((stamp) => stamp.name == categoryName, orElse: () => null);
+    final stamp =
+        digitalStamps.firstWhere((stamp) => stamp.name == categoryName);
 
     return stamp;
   }
 
-  Future<void> updateQuizStampsPerCategory(String categoryName) async {
-    throw UnimplementedError();
+  Future<void> updateQuizStampsPerCategory(
+    String categoryName,
+    int questionIndex,
+  ) async {
+    dynamic digitalStamps =
+        await _hiveStorage.getData(LocalStorageKeys.digitalStamps);
+
+    if (digitalStamps != null) {
+      DigitalStamp stamp = digitalStamps.firstWhere(
+        (stamp) => stamp.name == categoryName,
+      );
+
+      List<StampItem> stampItems = stamp.items;
+
+      stampItems = stampItems.map((stampItem) {
+        if (stampItem.stampIndex == questionIndex) {
+          stampItem.isSigned = true;
+        }
+
+        return stampItem;
+      }).toList();
+      await _hiveStorage.addData(LocalStorageKeys.digitalStamps, digitalStamps);
+    }
+  }
+
+  Future<void> resetQuizStampsPerCategpry(String categoryName) async {
+    dynamic digitalStamps =
+        await _hiveStorage.getData(LocalStorageKeys.digitalStamps);
+
+    if (digitalStamps != null) {
+      DigitalStamp stamp = digitalStamps.firstWhere(
+          (stamp) => stamp.name == categoryName,
+          orElse: () => null);
+
+      List<StampItem> stampItems = stamp.items;
+
+      stampItems = stampItems.map((stampItem) {
+        stampItem.isSigned = false;
+
+        return stampItem;
+      }).toList();
+
+      await _hiveStorage.addData(LocalStorageKeys.digitalStamps, digitalStamps);
+    }
   }
 }

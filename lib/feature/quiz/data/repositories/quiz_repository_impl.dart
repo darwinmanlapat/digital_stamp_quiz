@@ -16,12 +16,19 @@ class QuizRepositoryImpl implements QuizRepository {
   }
 
   @override
-  Future<void> updateQuizStampsPerCategory(String categoryName) {
-    return _localSource.updateQuizStampsPerCategory(categoryName);
+  Future<void> updateQuizStampsPerCategory(
+      String categoryName, int questionIndex) {
+    return _localSource.updateQuizStampsPerCategory(
+        categoryName, questionIndex);
   }
 
   @override
   Future<DigitalStamp> getDigitalStampPerCategory(String categoryname) {
     return _localSource.getDigitalStampPerCategory(categoryname);
+  }
+
+  @override
+  Future<void> resetQuizStampsPerCategory(String categoryName) {
+    return _localSource.resetQuizStampsPerCategpry(categoryName);
   }
 }

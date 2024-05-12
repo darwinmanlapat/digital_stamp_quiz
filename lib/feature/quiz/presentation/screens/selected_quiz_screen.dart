@@ -5,6 +5,7 @@ import 'package:digital_stamp_quiz/feature/quiz/domain/entities/quiz_entity.dart
 import 'package:digital_stamp_quiz/feature/quiz/presentation/view_models/quiz_category_view_model.dart';
 import 'package:digital_stamp_quiz/feature/quiz/presentation/view_models/quiz_page_controller_provider.dart';
 import 'package:digital_stamp_quiz/feature/quiz/presentation/view_models/quiz_score_provder.dart';
+import 'package:digital_stamp_quiz/feature/quiz/presentation/view_models/quiz_stamps_view_model.dart';
 import 'package:digital_stamp_quiz/feature/quiz/presentation/widgets/quiz_score_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -90,6 +91,9 @@ class SelectedQuizScreen extends HookConsumerWidget {
                   quiz: quizzes[index],
                   quizLength: quizzes.length,
                   questionIndex: index,
+                  categoryName:
+                      categoryStateProvider.asData?.value[categoryIndex].name ??
+                          'Space and Astronomy',
                 );
               },
             ),
@@ -105,11 +109,13 @@ class _QuizQuestionPage extends StatelessWidget {
     required this.quiz,
     required this.quizLength,
     required this.questionIndex,
+    required this.categoryName,
   });
 
   final Quiz quiz;
   final int quizLength;
   final int questionIndex;
+  final String categoryName;
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +154,7 @@ class _QuizQuestionPage extends StatelessWidget {
               child: _QuizAnswersWidget(
                 quizAnswers: quiz.answers,
                 questionIndex: questionIndex,
+                categoryName: categoryName,
               ),
             ),
           ],
@@ -161,16 +168,19 @@ class _QuizAnswersWidget extends HookConsumerWidget {
   const _QuizAnswersWidget({
     required this.quizAnswers,
     required this.questionIndex,
+    required this.categoryName,
   });
 
   final List<QuizAnswer> quizAnswers;
   final int questionIndex;
+  final String categoryName;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quizPageController =
         ref.read(quizPageControllerStateNotifierProvider);
     final quizScoreNotifier = ref.read(quizScoreStateNotifier.notifier);
+    final quizStampsNotifier = ref.read(quizStampsNotifierProvider.notifier);
     ValueNotifier<bool> hasSelected = useState(false);
     ValueNotifier<int?> selectedIndex = useState(null);
 
@@ -195,6 +205,11 @@ class _QuizAnswersWidget extends HookConsumerWidget {
                         selectedIndex.value = index;
 
                         if (quizAnswers[index].isCorrect) {
+                          quizStampsNotifier.updateQuizStampsPerCategory(
+                            categoryName,
+                            questionIndex,
+                          );
+
                           quizScoreNotifier.incrementScore();
                         }
 

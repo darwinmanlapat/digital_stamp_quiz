@@ -13,8 +13,23 @@ class DigitalStamp {
   @HiveField(2)
   List<StampItem> items;
 
-  DigitalStamp(
-      {required this.name, required this.questionIndex, required this.items});
+  DigitalStamp({
+    required this.name,
+    required this.questionIndex,
+    required this.items,
+  });
+
+  DigitalStamp copyWith({
+    String? name,
+    int? questionIndex,
+    List<StampItem>? items,
+  }) {
+    return DigitalStamp(
+      name: name ?? this.name,
+      questionIndex: questionIndex ?? this.questionIndex,
+      items: items ?? this.items,
+    );
+  }
 
   factory DigitalStamp.fromJson(Map<String, dynamic> json) {
     return DigitalStamp(

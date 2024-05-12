@@ -10,14 +10,9 @@ class QuizScore extends StateNotifier<int> {
   void resetScore() {
     state = 0;
   }
-
-  void setHighScoreRecord() {
-    // read data from hive
-    // if no recorded data, save the data
-    // if there is a recorded data, compare the current state and the stored data
-    // save the state if its higher from the previous 
-  }
 }
 
 final quizScoreStateNotifier =
-    StateNotifierProvider.autoDispose<QuizScore, int>((ref) => QuizScore());
+    StateNotifierProvider.autoDispose<QuizScore, int>((ref) {
+  return QuizScore();
+});
