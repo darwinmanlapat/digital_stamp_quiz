@@ -9,38 +9,34 @@
 | Xcode          | 15.3        |
 | Android Studio | 17.0.6      |
 
-<br><hr><br>
-
 ## **Tech Stack**
 
-**State Management:** <br>
+**State Management:**
 
 - riverpod: ^2.5.1
 - flutter_riverpod: ^2.5.1
 - hooks_riverpod: ^2.5.1
 - flutter_hooks: ^0.18.6
 
-**Service Locator:** <br>
+**Service Locator:**
 
 - get_it: ^7.7.0
 
-**Local Storage:** <br>
+**Local Storage:**
 
 - hive: ^2.2.3
 - hive_flutter: ^1.1.0
 - hive_generator: ^1.1.0
 
-**Navigation:** <br>
+**Navigation:**
 
 - go_router: ^14.0.2
 
-**Miscellaneous:** <br>
+**Miscellaneous:**
 
 - lottie: ^3.1.0
 - path_provider: ^2.1.3
 - flutter_svg: ^2.0.10+1
-
-<br><hr><br>
 
 ## **Setting Up Dev Local Environment**
 
@@ -50,11 +46,7 @@
 
 - To run the app, run flutter run. If you are using Visual Studio Code, go to Run and Debug and choose the [launch configuration](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations).
 
-<br><hr><br>
-
 ## **Folder Structure**
-
-<br>
 
 ```bash
 .
